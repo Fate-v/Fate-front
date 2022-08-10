@@ -11,11 +11,17 @@ const Chat = () => {
     }
   return (
     <S.ChatWapper>
-      <S.Title>Fate</S.Title>
-      <S.Inputs>
-        <input type={"text"} value={name} onChange={(e) => setName(e.target.value)}/>
-        <S.Btn onClick={onClick}>입장하기</S.Btn>
-      </S.Inputs>
+      <S.Header>
+        <S.WhiteSpace />
+        <S.Title>Fate</S.Title>
+        <S.HeaderBtn>방나가기</S.HeaderBtn>
+      </S.Header>
+    <S.Select>
+    </S.Select>
+    <S.InputWapper>
+        <input type={"text"} value="내용을 입력하세요"/>
+        <S.SendBtn></S.SendBtn>
+    </S.InputWapper>
     </S.ChatWapper>
   )
 }
