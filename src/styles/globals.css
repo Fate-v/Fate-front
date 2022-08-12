@@ -21,3 +21,8 @@ a {
 * {
   box-sizing: border-box;
 }
+
+a,button,input{
+  font-family: "GangwonEduSaeeum_OTFMediumA";
+
+}

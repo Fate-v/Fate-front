@@ -29,11 +29,11 @@ export const HeaderBtn = styled.button`
     height: 50px;
     border-radius: 10px;
     color: white;
-    background-color: #FF5252;
     border: none;
     font-size: 15px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 `;
+
 
 export const Select = styled.div`
     width: 100%;
@@ -111,7 +111,7 @@ export const InputWapper = styled.div`
         outline: none;
         width: 80%;
         height: 60px;
-        border-radius: 25px;
+        border-radius: 10px;
         padding-left: 50px;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     }
@@ -125,4 +125,5 @@ export const SendBtn = styled.button`
     border-radius: 10px;
     border: none;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
 `;
