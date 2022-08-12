@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+type InputProp = {
+    warning : boolean
+}
+
 export const LoginWapper = styled.div`
     width: 100%;
     height: 100vh;
@@ -14,7 +18,7 @@ export const Title = styled.h1`
     font-size: 100px;
 `;
 
-export const Inputs = styled.div`
+export const Inputs = styled.div<InputProp>`
     margin: 0 auto;
     height: 400px;
     width: 500px;
@@ -31,6 +35,10 @@ export const Inputs = styled.div`
         border: none;
         box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
         
+        ::placeholder{
+            color: ${(props) => props.warning ? "red": "gray" };
+        }
+
     }
 
     p{
