@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as S from "./styled";
-
+import { useRecoilState } from 'recoil';
+import { nameState } from '../../recoil/state';
+const URL = "url/1234:40001"
 
 import SocketIOClient from "socket.io-client";
 
@@ -15,6 +17,24 @@ const Chat = () => {
     const [connected, setConnected] = useState<boolean>(false);
     const [chat, setChat] = useState<IMessage[]>([]);
 
+    const [name, setName] = useRecoilState(nameState);
+
+    useEffect(() : any =>{
+        const socket = SocketIOClient(URL);
+
+        socket.on("connect", () =>{
+            console.log("SOCKET CONNECT!",socket.id);
+            setConnected(true);
+        });
+
+        socket.on("message", (message:IMessage) => {
+          chat.push(message);
+          setChat([...chat]);
+        });
+
+        if (socket) return () => socket.disconnect();
+
+    },[]);
 
     const onClick = () =>{
 

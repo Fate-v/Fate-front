@@ -9,9 +9,9 @@ const Login = () => {
     const router = useRouter();
     const InputRef = useRef<any>();
 
-    const [warning, setWarning] = useState(false);
+    const [warning, setWarning] = useState<boolean>(false);
     const [name,setName] = useRecoilState(nameState);
-    
+
     const onClick = () => {
         if(name == ""){
             setWarning(true)
