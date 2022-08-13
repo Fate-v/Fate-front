@@ -2,8 +2,19 @@ import { useState } from 'react';
 import * as S from "./styled";
 
 
+import SocketIOClient from "socket.io-client";
+
+interface IMessage {
+    user: string;
+    message: string;
+  }
+
 const Chat = () => {
     const [chatting, setChatting] = useState(true);
+    const [sendMessage, setSendMessage] = useState<string>("");
+    const [connected, setConnected] = useState<boolean>(false);
+    const [chat, setChat] = useState<IMessage[]>([]);
+
 
     const onClick = () =>{
 
