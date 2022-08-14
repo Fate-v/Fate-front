@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import * as S from "./styled";
 import { useRecoilState } from 'recoil';
 import { nameState } from '../../recoil/state';
@@ -16,6 +16,9 @@ const Chat = () => {
     const [sendMessage, setSendMessage] = useState<string>("");
     const [connected, setConnected] = useState<boolean>(false);
     const [chat, setChat] = useState<IMessage[]>([]);
+    
+    const [room, setRoom] = useState("");
+
 
     const [name, setName] = useRecoilState(nameState);
 
@@ -35,10 +38,36 @@ const Chat = () => {
         if (socket) return () => socket.disconnect();
 
     },[]);
+  
+  const sendMessageHandler  = useCallback( // input event
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setSendMessage(event.target.value);
+    },
+    [sendMessage]
+  );
 
-    const onClick = () =>{
-
+  const enterKeyPress = (event: any) => { //enter key event
+    if (event.key === "Enter" && !event.shiftKey) {
+      // send message
+      event.preventDefault();
+      submitSendMessage(event);
     }
+  };
+
+  const submitSendMessage = async (event: React.FormEvent<HTMLButtonElement>) => { // 메세지 전송
+    event.preventDefault();
+    if (sendMessage) {
+      const message: IMessage = {
+        user: name,
+        message: sendMessage,
+      };
+
+      // const response = await axios.post("/api/chat", message);
+      setSendMessage("");
+    }
+  };
+
+
 
   return (
     <S.ChatWapper>
@@ -59,8 +88,8 @@ const Chat = () => {
         </S.ChattingList>
     </S.Select>
     <S.InputWapper>
-        <input type={"text"} placeholder="내용을 입력하세요"/>
-        <S.SendBtn onClick={onClick}>전송</S.SendBtn>
+        <input type={"text"} placeholder="내용을 입력하세요" onKeyPress={enterKeyPress} onChange={sendMessageHandler}/>
+        <S.SendBtn >전송</S.SendBtn>
     </S.InputWapper>
     </S.ChatWapper>
   )
