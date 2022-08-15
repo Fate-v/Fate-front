@@ -1,23 +1,22 @@
 import { useCallback, useEffect, useState } from 'react';
 import * as S from "./styled";
 import { useRecoilState } from 'recoil';
-import { nameState, roomNumber } from '../../recoil/state';
-const URL = "url/1234:40001"
+import { nameState } from '../../recoil/state';
+const URL = "url/1234:40001" //서버주소
 
 import {io} from "socket.io-client";
 
-interface IMessage {
+interface IMessage { //메세지  type
     user: string;
     message: string;
   }
 
 const Chat = () => {
-    const [chatting, setChatting] = useState(true);
-    const [sendMessage, setSendMessage] = useState<string>("");
-    const [connected, setConnected] = useState<boolean>(false);
-    const [chat, setChat] = useState<IMessage[]>([]);
+    const [connected, setConnected] = useState<boolean>(false); // socket 에 연결
+    const [findRoom , setFindRoom] = useState<boolean>(false);  // 방찾기
+    const [sendMessage, setSendMessage] = useState<string>(""); // 보낼메세지
+    const [chat, setChat] = useState<IMessage[]>([]);           // 총 메세지
     
-    const [room, setRoom] = useRecoilState(roomNumber)
     const [name, setName] = useRecoilState(nameState);
 
     const socket = io(URL);
@@ -33,15 +32,16 @@ const Chat = () => {
         socket.emit('requestRandomChat'); // 채팅할 방 요청
 
         socket.on('completeMatch', function(data){ // 요청 완료됬을때
-          console.log('completeMatch!');
+          console.log('방매칭에 성공했습니다!');
+          setFindRoom(true);
         });
 
-        socket.on("sendMessage", (message:IMessage) => { //message
+        socket.on("receiveMessage", (message:IMessage) => { //메세지   받기
           chat.push(message);
           setChat([...chat]);
         });
 
-        if (socket) return () => socket.disconnect();
+        // if (socket) return () => socket.disconnect();
 
     },[]);
   
@@ -52,7 +52,7 @@ const Chat = () => {
     [sendMessage]
   );
 
-  const enterKeyPress = (event: any) => { //enter key event
+  const enterKeyPress = (event: any) => { //enter key 이벤트함수
     if (event.key === "Enter" && !event.shiftKey) {
       // send message
       event.preventDefault();
@@ -68,13 +68,13 @@ const Chat = () => {
         message: sendMessage,
       };
 
-      // const response = await axios.post("/api/chat", message);
-      setSendMessage("");
+      socket.emit('sendMessage', {message:message}); // 메세지 보내기
+      setSendMessage(""); //input 초기화
     }
   };
 
   const HeaderBtnClick = () =>{ 
-    if(chatting){  //방나가기일때
+    if(connected){  //방나가기일때
       socket.emit('cancelRequest');
     }
     else{  //방찾기일떄
@@ -88,7 +88,8 @@ const Chat = () => {
       <S.Header>
         <S.WhiteSpace />
         <S.Title>Fate</S.Title>
-        <S.HeaderBtn style={{backgroundColor : chatting ? "#FF5252" : "#8870FE" }} onClick={HeaderBtnClick}>{chatting ? "방나가기" : "방찾기"}</S.HeaderBtn>
+        <S.HeaderBtn style={{backgroundColor : connected ? "#FF5252" : "#8870FE" }} 
+        onClick={HeaderBtnClick}>{connected ? "방나가기" : "방찾기"}</S.HeaderBtn>
       </S.Header>
     <S.Select>
         <S.ChattingList >
@@ -102,7 +103,8 @@ const Chat = () => {
         </S.ChattingList>
     </S.Select>
     <S.InputWapper>
-        <input type={"text"} placeholder="내용을 입력하세요" onKeyPress={enterKeyPress} onChange={sendMessageHandler}/>
+        <input type={"text"} placeholder={findRoom ? "내용을 입력하세요" : "상대방을 찾는중입니다"} 
+        value={findRoom ? sendMessage : ''} onKeyPress={enterKeyPress} onChange={sendMessageHandler}/>
         <S.SendBtn >전송</S.SendBtn>
     </S.InputWapper>
     </S.ChatWapper>
