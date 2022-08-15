@@ -5,4 +5,9 @@ const nameState = atom<string>({
     default : '',
 })
 
-export {nameState};
+const roomNumber = atom<number>({
+    key: 'nameState',
+    default : 1,
+})
+
+export {nameState , roomNumber};

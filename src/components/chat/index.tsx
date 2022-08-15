@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
 import * as S from "./styled";
 import { useRecoilState } from 'recoil';
-import { nameState } from '../../recoil/state';
+import { nameState, roomNumber } from '../../recoil/state';
 const URL = "url/1234:40001"
 
-import SocketIOClient from "socket.io-client";
+import {io} from "socket.io-client";
 
 interface IMessage {
     user: string;
@@ -17,20 +17,26 @@ const Chat = () => {
     const [connected, setConnected] = useState<boolean>(false);
     const [chat, setChat] = useState<IMessage[]>([]);
     
-    const [room, setRoom] = useState("");
-
-
+    const [room, setRoom] = useRecoilState(roomNumber)
     const [name, setName] = useRecoilState(nameState);
 
-    useEffect(() : any =>{
-        const socket = SocketIOClient(URL);
+    const socket = io(URL);
 
-        socket.on("connect", () =>{
+    useEffect(() : any =>{
+
+        socket.on("connect", () =>{     // socket 연결
             console.log("SOCKET CONNECT!",socket.id);
             setConnected(true);
+
         });
 
-        socket.on("message", (message:IMessage) => {
+        socket.emit('requestRandomChat'); // 채팅할 방 요청
+
+        socket.on('completeMatch', function(data){ // 요청 완료됬을때
+          console.log('completeMatch!');
+        });
+
+        socket.on("sendMessage", (message:IMessage) => { //message
           chat.push(message);
           setChat([...chat]);
         });
@@ -39,7 +45,7 @@ const Chat = () => {
 
     },[]);
   
-  const sendMessageHandler  = useCallback( // input event
+  const sendMessageHandler  = useCallback( // input 입력 이벤트함수
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setSendMessage(event.target.value);
     },
@@ -67,6 +73,14 @@ const Chat = () => {
     }
   };
 
+  const HeaderBtnClick = () =>{ 
+    if(chatting){  //방나가기일때
+      socket.emit('cancelRequest');
+    }
+    else{  //방찾기일떄
+      socket.emit('requestRandomChat'); // 채팅할 방 요청
+    }
+  }
 
 
   return (
@@ -74,7 +88,7 @@ const Chat = () => {
       <S.Header>
         <S.WhiteSpace />
         <S.Title>Fate</S.Title>
-        <S.HeaderBtn style={{backgroundColor : chatting ? "#FF5252" : "#8870FE" }}>{chatting ? "방나가기" : "방찾기"}</S.HeaderBtn>
+        <S.HeaderBtn style={{backgroundColor : chatting ? "#FF5252" : "#8870FE" }} onClick={HeaderBtnClick}>{chatting ? "방나가기" : "방찾기"}</S.HeaderBtn>
       </S.Header>
     <S.Select>
         <S.ChattingList >
