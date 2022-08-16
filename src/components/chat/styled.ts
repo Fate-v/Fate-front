@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const ChatWapper = styled.div`
     width:100%;
-    height:100%;
+    height:100vh;
     flex-direction: column;
     justify-content: flex-start;
     align-items:center;
@@ -43,39 +43,28 @@ export const HeaderBtn = styled.button`
 export const Select = styled.div`
     width: 100%;
     height: 600px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
     overflow-y: scroll;
-
-    border: 1px solid gray;
+    overflow-x: hidden;
+    background-color: #e4e3f2;
 `;
+
 export const ChattingList = styled.ul`
     width: 100%;
-    li{
-        width: 60%;
-        padding: 0.3rem;
-        display: flex;
-        justify-content: flex-start;
-        align-items: flex-end;
-        margin-top: 0.5rem;
-    }
-
-    .profile{
+    height: 100%;
+    list-style:none;
+    padding : 0 15px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    }
-    .profile .user{
-        font-size: 20px;
+    
+    .user{
+        font-size: 15px;
         margin-bottom: 0.3rem;
     }
 
     .message {
+        width: max-content;
         border-radius: 5px;
-        padding: 0.5rem;
+        padding: 5px 30px;
         font-size: 22px;
         margin:  0 5px;
         flex: 7;
@@ -97,10 +86,32 @@ export const ChattingList = styled.ul`
     .received .message{
         background: #fff;
     }
+
 `;
 
+export const Liwapper = styled.li`
+    width: 100%;
+    height: max-content;
+    
+    padding: 0.3rem;
+    gap: 10px;
+    margin-top: 0.5rem;
+    flex-direction: row;
+    border: 1px solid black;
+    
+    div{
+        width: max-content;
+        max-width: 50%;
+        height: max-content;
+        margin: 10px 0;
+
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+    }
 
 
+`;
 
 
 export const InputWapper = styled.div`

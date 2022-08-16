@@ -7,7 +7,7 @@ const URL = "url/1234:40001" //서버주소
 import {io} from "socket.io-client";
 
 interface IMessage { //메세지  type
-    user: string;
+    name: string;
     message: string;
   }
 
@@ -24,11 +24,9 @@ const Chat = () => {
     useEffect(() : any =>{
 
         socket.on("connect", () =>{     // socket 연결
-            console.log("SOCKET CONNECT!",socket.id);
+            console.log("connected!");
             setConnected(true);
-
         });
-
         socket.emit('requestRandomChat'); // 채팅할 방 요청
 
         socket.on('completeMatch', function(data){ // 요청 완료됬을때
@@ -36,12 +34,10 @@ const Chat = () => {
           setFindRoom(true);
         });
 
-        socket.on("receiveMessage", (message:IMessage) => { //메세지   받기
+        socket.on("receiveMessage", (message:IMessage) => { //메세지 받기
           chat.push(message);
           setChat([...chat]);
         });
-
-        // if (socket) return () => socket.disconnect();
 
     },[]);
   
@@ -64,7 +60,7 @@ const Chat = () => {
     event.preventDefault();
     if (sendMessage) {
       const message: IMessage = {
-        user: name,
+        name: name,
         message: sendMessage,
       };
 
@@ -92,18 +88,39 @@ const Chat = () => {
         onClick={HeaderBtnClick}>{connected ? "방나가기" : "방찾기"}</S.HeaderBtn>
       </S.Header>
     <S.Select>
-        <S.ChattingList >
-            <li className='sent'>
-            <span className="profile">
-            <span className="user">환빈</span>
-            </span>
-            <span className="message">안녕</span>
-            <span className="time">11:11</span>
-            </li>
+        <S.ChattingList>
+          {chat ? (
+              chat.map((item,index) => (
+              <S.Liwapper className={item.name === name ? "sent" : "received"}  key={index}>
+                <div>
+                  <span className="user">{name}</span>
+                  <span className="message">{item.message}</span>
+                  {/* <span className="time">11:11</span> */}
+                </div>
+              </S.Liwapper>
+              ))
+            ) : (<p>loding...</p>)
+          }
+          
+            <S.Liwapper   className='sent'>
+            <div  className='sent'>
+              <span className="user">{name}</span>
+              <span className="message">asdasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfadsfasdffasdfasdfasdfasdf안녕</span>
+              {/* <span className="time">11:11</span> */}
+            </div>
+            </S.Liwapper>
+            <S.Liwapper className='received'>
+            <div  className='received'>
+              <span className="user">{name}</span>
+              <span className="message">안녕</span>
+              {/* <span className="time">11:11</span> */}
+            </div>
+            </S.Liwapper>
+            
         </S.ChattingList>
     </S.Select>
     <S.InputWapper>
-        <input type={"text"} placeholder={findRoom ? "내용을 입력하세요" : "상대방을 찾는중입니다"} 
+        <input type={"text"} placeholder={findRoom ? "내용을 입력하세요" : "대화중이 아닙니다"} 
         value={findRoom ? sendMessage : ''} onKeyPress={enterKeyPress} onChange={sendMessageHandler}/>
         <S.SendBtn >전송</S.SendBtn>
     </S.InputWapper>
