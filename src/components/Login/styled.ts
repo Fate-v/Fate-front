@@ -15,7 +15,8 @@ export const LoginWapper = styled.div`
 `;
 
 export const Title = styled.h1`
-    font-size: 100px;
+    font-size: 120px;
+    font-family: "GangwonEduSaeeum_OTFMediumA";
 `;
 
 export const Inputs = styled.div<InputProp>`

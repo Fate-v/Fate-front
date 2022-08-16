@@ -22,7 +22,8 @@ export const WhiteSpace = styled.div`
     height: 100%;
 `;
 export const Title = styled.h1`
-    font-size: 60px;
+  font-family: "GangwonEduSaeeum_OTFMediumA";
+    font-size: 80px;
 `;
 export const HeaderBtn = styled.button`
     width: 100px;
@@ -30,8 +31,12 @@ export const HeaderBtn = styled.button`
     border-radius: 10px;
     color: white;
     border: none;
-    font-size: 15px;
+    font-size: 20px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+    :hover{
+        cursor: pointer;
+    }
 `;
 
 
@@ -71,12 +76,12 @@ export const ChattingList = styled.ul`
     .message {
         border-radius: 5px;
         padding: 0.5rem;
-        font-size: 32px;
+        font-size: 22px;
         margin:  0 5px;
         flex: 7;
     }
     .time{
-        font-size: 20px;
+        font-size: 15px;
         margin: 0 5px;
     }
 
@@ -114,6 +119,7 @@ export const InputWapper = styled.div`
         border-radius: 10px;
         padding-left: 50px;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        font-size: 20px;
     }
 `;
 
@@ -124,6 +130,10 @@ export const SendBtn = styled.button`
     color: white;
     border-radius: 10px;
     border: none;
+    font-size: 20px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 
+    :hover{
+        cursor: pointer;
+    }
 `;
