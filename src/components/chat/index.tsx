@@ -1,7 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
 import * as S from "./styled";
-import { useRecoilState } from 'recoil';
-import { nameState } from '../../recoil/state';
 const URL = "url/1234:40001" //서버주소
 
 import {io} from "socket.io-client";
@@ -16,9 +14,13 @@ const Chat = () => {
     const [findRoom , setFindRoom] = useState<boolean>(false);  // 방찾기
     const [sendMessage, setSendMessage] = useState<string>(""); // 보낼메세지
     const [chat, setChat] = useState<IMessage[]>([]);           // 총 메세지
-    
-    const [name, setName] = useRecoilState(nameState);
+    const [name,setName] = useState("");
 
+    useEffect(()=>{
+      if (typeof window !== 'undefined') { //pre-Rendering 오류 방지
+        setName(window.sessionStorage.getItem('fate-name') ?? "none");
+      }
+    },[])
     const socket = io(URL);
 
     useEffect(() : any =>{
@@ -60,7 +62,7 @@ const Chat = () => {
     event.preventDefault();
     if (sendMessage) {
       const message: IMessage = {
-        name: name,
+        name: name ?? "none",
         message: sendMessage,
       };
 

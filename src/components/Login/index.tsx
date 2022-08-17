@@ -1,7 +1,5 @@
 import { useRouter } from 'next/router';
 import { useRef, useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { nameState } from '../../recoil/state';
 import * as S from "./styled";
 
 
@@ -10,7 +8,7 @@ const Login = () => {
     const InputRef = useRef<any>();
 
     const [warning, setWarning] = useState<boolean>(false);
-    const [name,setName] = useRecoilState(nameState);
+    const [name,setName] = useState<string>("");
 
     const enterKeyPress = (event: any) => { //enter key 이벤트함수
       if (event.key === "Enter") {
@@ -25,6 +23,7 @@ const Login = () => {
             InputRef.current.focus();
             return;
         }
+        window.sessionStorage.setItem("fate-name",name)
         router.push("/chat")
     }
     const onchange = (e:any) =>{
