@@ -22,8 +22,8 @@ export const WhiteSpace = styled.div`
     height: 100%;
 `;
 export const Title = styled.h1`
-  font-family: "GangwonEduSaeeum_OTFMediumA";
-    font-size: 80px;
+    font-size: 40px;
+    font-weight: 100;
 `;
 export const HeaderBtn = styled.button`
     width: 100px;
@@ -63,6 +63,8 @@ export const ChattingList = styled.ul`
 
     .message {
         width: max-content;
+
+
         border-radius: 5px;
         padding: 5px 30px;
         font-size: 22px;
@@ -92,7 +94,7 @@ export const ChattingList = styled.ul`
 export const Liwapper = styled.li`
     width: 100%;
     height: max-content;
-    
+
     padding: 0.3rem;
     gap: 10px;
     margin-top: 0.5rem;
@@ -101,16 +103,15 @@ export const Liwapper = styled.li`
     
     div{
         width: max-content;
-        max-width: 50%;
+        max-width: 700px;
         height: max-content;
         margin: 10px 0;
-
+    
         display: flex;
         flex-direction: row;
         align-items: flex-end;
+        gap: 15px;
     }
-
-
 `;
 
 

@@ -105,14 +105,14 @@ const Chat = () => {
             <S.Liwapper   className='sent'>
             <div  className='sent'>
               <span className="user">{name}</span>
-              <span className="message">asdasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfadsfasdffasdfasdfasdfasdf안녕</span>
+              <p className="message">image.asdfasdfasdfasdfasdf</p>
               {/* <span className="time">11:11</span> */}
             </div>
             </S.Liwapper>
             <S.Liwapper className='received'>
             <div  className='received'>
               <span className="user">{name}</span>
-              <span className="message">안녕</span>
+              <p className="message">안녕</p>
               {/* <span className="time">11:11</span> */}
             </div>
             </S.Liwapper>
