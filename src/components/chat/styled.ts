@@ -6,16 +6,18 @@ export const ChatWapper = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     align-items:center;
+    overflow: none;
 `;
 
 export const Header = styled.div`
-    width: 90%;
+    width: 100%;
     height: 100px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0 5%;
     border: none;
+    padding: 0 5%;
+    background-color: white;
 `;
 export const WhiteSpace = styled.div`
     width: 100px;
@@ -42,10 +44,10 @@ export const HeaderBtn = styled.button`
 
 export const Select = styled.div`
     width: 100%;
-    height: 600px;
+    height: 650px;
     overflow-y: scroll;
     overflow-x: hidden;
-    background-color: #e4e3f2;
+    background-color: #f4f4f4;
 `;
 
 export const ChattingList = styled.ul`
@@ -62,11 +64,8 @@ export const ChattingList = styled.ul`
     }
 
     .message {
-        width: max-content;
-
-
         border-radius: 5px;
-        padding: 5px 30px;
+        padding: 10px 10px;
         font-size: 22px;
         margin:  0 5px;
         flex: 7;
@@ -82,7 +81,7 @@ export const ChattingList = styled.ul`
     }
 
     .sent .message{
-    background: #ffeb33;
+    background: #c8d2ff;
     }
 
     .received .message{
@@ -94,12 +93,12 @@ export const ChattingList = styled.ul`
 export const Liwapper = styled.li`
     width: 100%;
     height: max-content;
-
+    min-height: 50px;
     padding: 0.3rem;
     gap: 10px;
     margin-top: 0.5rem;
     flex-direction: row;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     
     div{
         width: max-content;
@@ -111,7 +110,12 @@ export const Liwapper = styled.li`
         flex-direction: row;
         align-items: flex-end;
         gap: 15px;
+
+        span{
+            word-break: break-all; //줄바꿈
+        }
     }
+
 `;
 
 

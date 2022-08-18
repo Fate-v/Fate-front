@@ -51,7 +51,7 @@ const Chat = () => {
   );
 
   const enterKeyPress = (event: any) => { //enter key 이벤트함수
-    if (event.key === "Enter" && !event.shiftKey) {
+    if (event.key === "Enter" && !event.z) {
       // send message
       event.preventDefault();
       submitSendMessage(event);
@@ -74,6 +74,7 @@ const Chat = () => {
   const HeaderBtnClick = () =>{ 
     if(connected){  //방나가기일때
       socket.emit('cancelRequest');
+      setFindRoom(false);
     }
     else{  //방찾기일떄
       socket.emit('requestRandomChat'); // 채팅할 방 요청
@@ -107,14 +108,14 @@ const Chat = () => {
             <S.Liwapper   className='sent'>
             <div  className='sent'>
               <span className="user">{name}</span>
-              <p className="message">image.asdfasdfasdfasdfasdf</p>
+              <span className="message">청춘의 인간이 그들을 위하여서, 안고, 생생하며, 그들에게 목숨을 것이다. 꽃이 커다란 들어 이상을 것이다. 오직 있는 무엇이 속에 수 부패를 원대하고, 이것이다. 밥을 있으며, 곳으로 놀이 가진 얼마나 있을 그리하였는가? 광야에서 작고 물방아 끓는다. 보이는 인생에 구하기 얼음 끓는 부패를 불어 같지 내는 힘있다. 없으면 이상이 든 이상은 끓는다. 피부가 이 그들은 있는 피다. 얼마나 스며들어 동력은 뛰노는 보라. 눈이 사는가 찾아 바이며, 찾아다녀도, 뿐이다. 따뜻한 가는 이 얼음과 심장의 없으면, 천자만홍이 동력은 교향악이다.</span>
               {/* <span className="time">11:11</span> */}
             </div>
             </S.Liwapper>
             <S.Liwapper className='received'>
             <div  className='received'>
               <span className="user">{name}</span>
-              <p className="message">안녕</p>
+              <span className="message">안녕</span>
               {/* <span className="time">11:11</span> */}
             </div>
             </S.Liwapper>
