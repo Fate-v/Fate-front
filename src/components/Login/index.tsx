@@ -23,8 +23,8 @@ const Login = () => {
             InputRef.current.focus();
             return;
         }
-        window.sessionStorage.setItem("fate-name",name)
-        router.push("/chat")
+        window.sessionStorage.setItem("fate-name",name);
+        router.push("/chat");
     }
     const onchange = (e:any) =>{
         if(e.target.value){setWarning(false)}
@@ -43,4 +43,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Login;

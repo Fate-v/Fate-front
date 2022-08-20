@@ -26,6 +26,7 @@ export const WhiteSpace = styled.div`
 export const Title = styled.h1`
     font-size: 40px;
     font-weight: 100;
+    cursor: pointer;
 `;
 export const HeaderBtn = styled.button`
     width: 100px;

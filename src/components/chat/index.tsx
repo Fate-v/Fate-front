@@ -14,7 +14,7 @@ const Chat = () => {
     const [findRoom , setFindRoom] = useState<boolean>(false);  // 방찾기
     const [sendMessage, setSendMessage] = useState<string>(""); // 보낼메세지
     const [chat, setChat] = useState<IMessage[]>([]);           // 총 메세지
-    const [name,setName] = useState("");
+    const [name,setName] = useState<string>("");
 
     useEffect(()=>{
       if (typeof window !== 'undefined') { //pre-Rendering 오류 방지
@@ -51,7 +51,7 @@ const Chat = () => {
   );
 
   const enterKeyPress = (event: any) => { //enter key 이벤트함수
-    if (event.key === "Enter" && !event.z) {
+    if (event.key === "Enter" && !event.shiftKey) {
       // send message
       event.preventDefault();
       submitSendMessage(event);
@@ -142,4 +142,4 @@ const Chat = () => {
   )
 }
 
-export default Chat
+export default Chat;
