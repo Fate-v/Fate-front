@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import { useRef, useState } from 'react';
+import { flushSync } from 'react-dom';
 import * as S from "./styled";
 
 
@@ -9,6 +10,7 @@ const Login = () => {
 
     const [warning, setWarning] = useState<boolean>(false);
     const [name,setName] = useState<string>("");
+    const [modalHover, setModalHover] = useState<boolean>(false);
 
     const enterKeyPress = (event: any) => { //enter key 이벤트함수
       if (event.key === "Enter") {
@@ -30,8 +32,18 @@ const Login = () => {
         if(e.target.value){setWarning(false)}
         setName(e.target.value);
     }
+
+    const onModalHover = (option:boolean) =>{
+      setModalHover(option);
+    }
+
   return (
     <S.LoginWapper>
+      <S.Modal onMouseOver={() => onModalHover(true)} onMouseLeave={() => onModalHover(false)}>?
+        <S.ModalDetail className={modalHover ? "show" : "hidden" }>
+            Fate 는 익명채팅 사이트 입니다.
+        </S.ModalDetail>
+      </S.Modal>
       <S.Title>Fate</S.Title>
       <S.Inputs warning={warning}>
         <input ref={InputRef} placeholder='이름입력'  style={{outlineColor : warning ? "red" : name ?  "blue" : "gray" }} 
