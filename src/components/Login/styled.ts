@@ -15,8 +15,8 @@ export const LoginWapper = styled.div`
 
 
     .square{
-        width:300px;
         border-radius: 0px;
+        width:300px;
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
     }
@@ -91,10 +91,14 @@ export const Modal = styled.div`
     transition: all 0.1s ease-out;
 
     .hidden{
-        display: none;
+        width: 0px;
+        height: 0px;
+        background-color: transparent;
+        color: transparent;
     }
+    
     .show{
-        display: block;
+        width: 300px;
     }
 
 `;
@@ -113,5 +117,6 @@ export const ModalDetail = styled.div`
     padding:15px 10px;
     color: white;
 
+    transition: all 0.1s ease-out;
 
 `;

@@ -10,7 +10,7 @@ const Login = () => {
 
     const [warning, setWarning] = useState<boolean>(false);
     const [name,setName] = useState<string>("");
-    const [modalHover, setModalHover] = useState<boolean>(true);  //모달 버튼 hover state
+    const [modalHover, setModalHover] = useState<boolean>(false);  //모달 버튼 hover state
     const [modalDetail , setModalDetail] = useState<boolean>(false);  //모달 설명 hover state
 
     const enterKeyPress = (event: any) => { //enter key 이벤트함수
