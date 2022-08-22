@@ -12,6 +12,14 @@ export const LoginWapper = styled.div`
     justify-content: center;
     align-items: center;
     gap: 100px;
+
+
+    .square{
+        width:300px;
+        border-radius: 0px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
 `;
 
 export const Title = styled.h1`
@@ -65,7 +73,7 @@ export const Btn = styled.button`
 export const Modal = styled.div`
     position: absolute;
     top: 70px;
-    right: 150px;
+    right: 100px;
     width: 50px;
     height: 50px;
     color: white;
@@ -79,21 +87,8 @@ export const Modal = styled.div`
     cursor: pointer;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     font-size: 24px;
-`;
 
-export const ModalDetail = styled.div`
-    position: absolute;
-    top: 70px;
-    right: 0px;
-    width: 300px;
-    height: 200px;
-    background-color: #bdbebd;
-    
-    display: block;
-    border-radius: 20px;
-    padding:15px 10px;
-    color: white;
-
+    transition: all 0.1s ease-out;
 
     .hidden{
         display: none;
@@ -101,4 +96,22 @@ export const ModalDetail = styled.div`
     .show{
         display: block;
     }
+
+`;
+
+export const ModalDetail = styled.div`
+    position: absolute;
+    top: 50px;
+    right: 0px;
+    width: 300px;
+    height: 200px;
+    background-color: #bdbebd;
+    
+    display: block;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding:15px 10px;
+    color: white;
+
+
 `;

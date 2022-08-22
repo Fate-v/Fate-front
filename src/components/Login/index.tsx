@@ -10,7 +10,8 @@ const Login = () => {
 
     const [warning, setWarning] = useState<boolean>(false);
     const [name,setName] = useState<string>("");
-    const [modalHover, setModalHover] = useState<boolean>(false);
+    const [modalHover, setModalHover] = useState<boolean>(true);  //모달 버튼 hover state
+    const [modalDetail , setModalDetail] = useState<boolean>(false);  //모달 설명 hover state
 
     const enterKeyPress = (event: any) => { //enter key 이벤트함수
       if (event.key === "Enter") {
@@ -39,9 +40,10 @@ const Login = () => {
 
   return (
     <S.LoginWapper>
-      <S.Modal onMouseOver={() => onModalHover(true)} onMouseLeave={() => onModalHover(false)}>?
-        <S.ModalDetail className={modalHover ? "show" : "hidden" }>
-            Fate 는 익명채팅 사이트 입니다.
+      <S.Modal onMouseOver={() => onModalHover(true)} onMouseLeave={() => modalDetail ? onModalHover(false) :   onModalHover(false)}
+      className={modalHover ? "square" : ""} >?
+        <S.ModalDetail  onMouseOver={() => setModalDetail(true)}  onMouseLeave={() => onModalHover(false)} className={modalHover ? "show" : "hidden" }>
+            Fate 는 1대1 익명랜덤채팅 사이트 입니다.
         </S.ModalDetail>
       </S.Modal>
       <S.Title>Fate</S.Title>
