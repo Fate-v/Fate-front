@@ -36,7 +36,7 @@ const Chat = () => {
           setFindRoom(true);
         });
 
-        socket.on("receiveMessage", (message:IMessage) => { //메세지 받기
+        socket.on("receiveMessage", (message:IMessage) => { //모든 메세지 받기
           chat.push(message);
           setChat([...chat]);
         });
@@ -60,15 +60,17 @@ const Chat = () => {
 
   const submitSendMessage = async (event: React.FormEvent<HTMLButtonElement>) => { // 메세지 전송
     event.preventDefault();
-    if (sendMessage) {
-      const message: IMessage = {
-        name: name ?? "none",
-        message: sendMessage,
-      };
-
-      socket.emit('sendMessage', {message:message}); // 메세지 보내기
-      setSendMessage(""); //input 초기화
+    if (!sendMessage && !name) {
+      console.log("내용을 입력하지 않았아요");
+      return;
     }
+    const message: IMessage = {
+      name: name,
+      message: sendMessage,
+    };
+    socket.emit('sendMessage', {message:message}); // 메세지 보내기
+    setSendMessage(""); //input 초기화
+    
   };
 
   const HeaderBtnClick = () =>{ 
