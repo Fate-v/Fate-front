@@ -90,7 +90,7 @@ const Chat = () => {
     }
     else if (!name){
       router.push('/');
-      return
+      return;
     }
     const message: IMessage = {
       name: name,
@@ -100,7 +100,7 @@ const Chat = () => {
     socket.emit('sendMessage', {message:message}); // 메세지 보내기
     setSendMessage(""); //input 초기화
     
-  };
+  };  
 
   const HeaderBtnClick = () =>{ 
     if(connected){  //방나가기일때
