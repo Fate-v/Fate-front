@@ -1,7 +1,7 @@
 const express = require('express');
 const listen = require('socket.io');
 const app = express();
-const port = 3000;
+const port = 'http://localhost:3000';
 
 
 const server = app.listen(port, () => {
@@ -32,3 +32,6 @@ io.on('connect', (socket:any) => {
     });
 
 });
+
+
+export{}

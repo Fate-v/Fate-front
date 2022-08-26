@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import {io} from "socket.io-client";
 import { useRouter } from 'next/router';
 import * as S from "./styled";
-const URL = "url/1234:40001" //서버주소
+const URL = "3000" //서버주소
 
 
 interface IMessage { //메세지  type
@@ -104,7 +104,7 @@ const Chat = () => {
 
   const HeaderBtnClick = () =>{ 
     if(connected){  //방나가기일때
-      socket.emit('cancelRequest');
+      socket.emit('disconnect');
       setFindRoom(false);
     }
     else{  //방찾기일떄
