@@ -13,7 +13,7 @@ interface IMessage { //메세지  type
 const Chat = () => {
     const router = useRouter();
     const [connected, setConnected] = useState<boolean>(false); // socket 에 연결
-    const [findRoom , setFindRoom] = useState<boolean>(false);  // 방찾기
+    // const [findRoom , setFindRoom] = useState<boolean>(false);  // 방찾기
     const [sendMessage, setSendMessage] = useState<string>(""); // 보낼메세지
     const [chat, setChat] = useState<IMessage[]>([]);           // 총 메세지
     const [name,setName] = useState<string>("");
@@ -27,19 +27,17 @@ const Chat = () => {
 
     useEffect(() : any =>{
 
-        // socket.on("connect", () =>{     // socket 연결
-        //     console.log("connected!");
-        //     setConnected(true);
-        // });
+        socket.on("connect", () =>{     // socket 연결
+            console.log("connected!");
+            setConnected(true);
+        });
 
         // socket.emit('requestRandomChat'); // 채팅할 방 요청
-
         // socket.on('completeMatch', function(data){ // 요청 완료됬을때
         //   console.log('방매칭에 성공했습니다!');
         //   setFindRoom(true);
         // });
-
-        if(connected && findRoom){
+        if(connected){
           socket.on("receiveMessage", (message:IMessage) => { //모든 메세지 받기
             setChat([...chat , message]);
           });
@@ -54,14 +52,12 @@ const Chat = () => {
       console.log("connected!");
       setConnected(true);
     });
+    // socket.emit('requestRandomChat'); // 채팅할 방 요청
 
-    socket.emit('requestRandomChat'); // 채팅할 방 요청
-
-    socket.on('completeMatch', function(data){ // 요청 완료됬을때
-      console.log('방매칭에 성공했습니다!');
-      setFindRoom(true);
-    });
-
+    // socket.on('completeMatch', function(data){ // 요청 완료됬을때
+    //   console.log('방매칭에 성공했습니다!');
+    //   setFindRoom(true);
+    // });
   }
 
   /**  input 입력 이벤트함수 */
@@ -105,7 +101,8 @@ const Chat = () => {
   const HeaderBtnClick = () =>{ 
     if(connected){  //방나가기일때
       socket.emit('disconnect');
-      setFindRoom(false);
+      setConnected(false);
+      // setFindRoom(false);
     }
     else{  //방찾기일떄
         ConnectionSocket();
@@ -119,7 +116,7 @@ const Chat = () => {
         <S.WhiteSpace />
         <S.Title>Fate</S.Title>
         <S.HeaderBtn style={{backgroundColor : connected ? "#FF5252" : "#8870FE" }} 
-        onClick={HeaderBtnClick}>{findRoom ? "방나가기" : "방찾기"}</S.HeaderBtn>
+        onClick={HeaderBtnClick}>{connected ? "방나가기" : "방찾기"}</S.HeaderBtn>
       </S.Header>
     <S.Select>
         <S.ChattingList>
@@ -159,8 +156,8 @@ const Chat = () => {
         </S.ChattingList>
     </S.Select>
     <S.InputWapper>
-        <input type={"text"} placeholder={findRoom ? "내용을 입력하세요" : "대화중이 아닙니다"} 
-        value={findRoom ? sendMessage : ''} onKeyPress={enterKeyPress} onChange={sendMessageHandler}/>
+        <input type={"text"} placeholder={connected ? "내용을 입력하세요" : "대화중이 아닙니다"} 
+        value={connected ? sendMessage : ''} onKeyPress={enterKeyPress} onChange={sendMessageHandler}/>
         <S.SendBtn >전송</S.SendBtn>
     </S.InputWapper>
     </S.ChatWapper>
