@@ -1,17 +1,32 @@
 const express = require('express');
-const listen = require('socket.io');
-const app = express();
-const port = 'http://localhost:3000';
+const next = require('next');
 
+const dev = process.env.NODE_ENV !== 'production';
+const listen = require('socket.io');
+const app = next({dev})
+const port = 'http://localhost:5000';
+const handle = app.getRequestHandler()
+
+// app.prepare()
+// .then(() =>{
+//     const server = express();
+
+//     server.get('*',(req:any,res:any) => {
+//         return handle(req,res);
+//     })
+
+
+
+// })
 
 const server = app.listen(port, () => {
     console.log('Express listening on port', port);
 });
 
 
+
+
 const io = listen(server);
-
-
 
 io.on('connect', (socket:any) => {
     let user = '';

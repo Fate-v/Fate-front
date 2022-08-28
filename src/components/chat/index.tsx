@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import {io} from "socket.io-client";
 import { useRouter } from 'next/router';
 import * as S from "./styled";
-const URL = "3000" //서버주소
+const URL = "http://localhost:5000" //서버주소
 
 
 interface IMessage { //메세지  type
