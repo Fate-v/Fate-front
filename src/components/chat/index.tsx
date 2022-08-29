@@ -6,7 +6,7 @@ const URL = "http://localhost:5000" //서버주소
 
 
 interface IMessage { //메세지  type
-    name: string;
+  username: string;
     message: string;
   }
 
@@ -15,7 +15,7 @@ const Chat = () => {
     const [connected, setConnected] = useState<boolean>(false); // socket 에 연결
     // const [findRoom , setFindRoom] = useState<boolean>(false);  // 방찾기
     const [sendMessage, setSendMessage] = useState<string>(""); // 보낼메세지
-    const [chat, setChat] = useState<IMessage[]>([]);           // 총 메세지
+    const [chat, setChat] = useState<IMessage[]>([]);        // 총 메세지
     const [name,setName] = useState<string>("");
 
     useEffect(()=>{
@@ -116,14 +116,14 @@ const Chat = () => {
         <S.WhiteSpace />
         <S.Title>Fate</S.Title>
         <S.HeaderBtn style={{backgroundColor : connected ? "#FF5252" : "#8870FE" }} 
-        onClick={HeaderBtnClick}>{connected ? "방나가기" : "방찾기"}</S.HeaderBtn>
+        onClick={HeaderBtnClick}>{connected ? "방나가기" : "방입장"}</S.HeaderBtn>
       </S.Header>
     <S.Select>
         <S.ChattingList>
           {chat ? (
               chat.map((item,index) => (
-              <S.Liwapper className={item.name === name ? "sent" : "received"}  key={index}>
-                <div className={item.name === name ? "sent" : "received"}>
+              <S.Liwapper className={item.username === name ? "sent" : "received"}  key={index}>
+                <div className={item.username === name ? "sent" : "received"}>
                   <span className="user">{name}</span>
                   <span className="message">{item.message}</span>
                 </div>
